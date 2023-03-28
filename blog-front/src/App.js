@@ -5,7 +5,7 @@ import { Header } from "./components";
 import { Home, FullPost, Registration, AddPost, Login } from "./pages";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAuthMe, selectIsAuth } from "./redux/slices/auth";
-import Mainreg from "./pages/MainReg/MainReg";
+import {Mainreg} from "./pages/MainReg";
 
 function App() {
   const dispatch = useDispatch();
