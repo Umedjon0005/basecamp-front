@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { Post } from "../components/Post";
 import axios from "../axios";
 import ReactMarkdown from "react-markdown";
+import { Header } from "../components";
 
 export const FullPost = () => {
   const [data, setData] = React.useState();
@@ -25,15 +26,13 @@ export const FullPost = () => {
 
   return (
     <>
+    <Header/>
       <Post
         id={data._id}
         title={data.title}
-        imageUrl={data.imageUrl ? `${process.env.REACT_APP_API_URL}${data.imageUrl}`: ''}
         user={data.user}
         createdAt={data.createdAt}
         viewsCount={data.viewsCount}
-        commentsCount={3}
-        tags={data.tags}
         isFullPost
       >
         <ReactMarkdown children={data.text}/>

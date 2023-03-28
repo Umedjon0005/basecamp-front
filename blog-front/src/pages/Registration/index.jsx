@@ -36,9 +36,9 @@ export const Registration = () => {
     }
   }
 
-  if(isAuth) {
-    return <Navigate to='/'/>
-  }
+    if(isAuth) {
+      return <Navigate to='/home'/>
+    }
 
   return (
     <Paper classes={{ root: styles.root }}>
@@ -60,9 +60,9 @@ export const Registration = () => {
             helperText={errors.password ?.message}
             type='password'
             {...register('password', {required: 'password'})} className={styles.field} label="password" fullWidth />
-          <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
-            Sign Up
-          </Button>
+            <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
+              Sign Up
+            </Button>
       </form>
     </Paper>
   );

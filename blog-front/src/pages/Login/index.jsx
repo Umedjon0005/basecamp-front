@@ -6,7 +6,6 @@ import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import {useForm} from 'react-hook-form';
-
 import styles from "./Login.module.scss";
 import { fetchAuth, selectIsAuth } from "../../redux/slices/auth";
 
@@ -35,9 +34,9 @@ export const Login = () => {
     }
   }
 
-  if(isAuth) {
-    return <Navigate to='/'/>
-  }
+      if(isAuth) {
+        return <Navigate to='/home'/>
+      }
 
   return (
     <Paper classes={{ root: styles.root }}>
@@ -54,16 +53,16 @@ export const Login = () => {
           {...register('email', {required: 'email'})}
           fullWidth
         />
-        <TextField className={styles.field} 
-          label="Password" 
+        <TextField className={styles.field}
+          label="Password"
           helperText={errors.password ?.message}
           error={Boolean(errors.password?.message)}
           {...register('password', {required: 'Password'})}
-          fullWidth 
+          fullWidth
           />
-        <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
-        Sign In
-        </Button>
+            <Button disabled={!isValid} type='submit' size="large" variant="contained" fullWidth>
+              Sign In
+            </Button>
       </form>
     </Paper>
   );

@@ -17,26 +17,11 @@ export const AddPost = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [text, setText] = React.useState("");
   const [title, setTitle] = React.useState("");
-  const [tags, setTags] = React.useState("");
-  const [imageUrl, setImageUrl] = React.useState("");
   const inputFileRef = React.useRef(null);
   const isEditing = Boolean(id);
-  const handleChangeFile = async (event) => {
-    try{
-      const formData = new FormData();
-      const file = event.target.files[0];
-      formData.append('image', file); 
-      const {data} = await axios.post('/upload', formData);
-      setImageUrl(data.url);
-    } catch(err) {
-      console.warn(err);
-      alert('Error in uploading file!')
-    }
-  };
+  
 
-  const onClickRemoveImage = () => {
-    setImageUrl('');
-  };
+  
 
   const onChange = React.useCallback((value) => {
     setText(value);
@@ -47,8 +32,6 @@ export const AddPost = () => {
       setIsLoading(true);
       const fields = {
         title,
-        imageUrl,
-        tags,
         text
       }
       const {data} = isEditing ? await axios.patch(`/posts/${id}`, fields) : await axios.post('/posts', fields);
@@ -66,8 +49,6 @@ export const AddPost = () => {
       axios.get(`/posts/${id}`).then(({data})=> {
         setTitle(data.title);
         setText(data.text);
-        setImageUrl(data.imageUrl);
-        setTags(data.tags.join(','));
       }).catch(err => {
         console.warn(err);
         alert('Error')
@@ -94,22 +75,10 @@ export const AddPost = () => {
     return <Navigate to='/' />
   }
 
-  console.log({title, tags, text});
+  console.log({title, text});
 
   return (
-    <Paper style={{ padding: 30 }}>
-      <Button onClick={() => inputFileRef.current.click()} variant="outlined" size="large">
-        Upload Image
-      </Button>
-      <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
-      {imageUrl && (
-        <>
-          <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-            Delete
-          </Button>
-          <img className={styles.image} src={`${process.env.REACT_APP_API_URL}${imageUrl}`} alt="Uploaded" />  
-        </>
-      )}
+    <Paper style={{ padding: 30, marginTop: 50 }}>
       <br />
       <br />
       <TextField
@@ -118,14 +87,6 @@ export const AddPost = () => {
         placeholder="Project name..."
         value={title}
         onChange={e => setTitle(e.target.value)}
-        fullWidth
-      />
-      <TextField
-        value = {tags}
-        onChange={e => setTags(e.target.value)}
-        classes={{ root: styles.tags }}
-        variant="standard"
-        placeholder="Tags"
         fullWidth
       />
       <SimpleMDE

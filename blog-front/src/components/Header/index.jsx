@@ -21,7 +21,7 @@ export const Header = () => {
     <div className={styles.root}>
       <Container maxWidth="lg">
         <div className={styles.inner}>
-          <Link className={styles.logo} to="/">
+          <Link className={styles.logo} to="/home">
             <div>BASECAMP</div>
           </Link>
           <div className={styles.buttons}>
@@ -30,9 +30,11 @@ export const Header = () => {
                 <Link to="/add-post">
                   <Button variant="contained">Create project</Button>
                 </Link>
-                <Button onClick={onClickLogout} variant="contained" color="error">
-                  Sign Out
-                </Button>
+                <Link to='/'>
+                  <Button onClick={onClickLogout} variant="contained" color="error">
+                      Sign Out
+                  </Button>
+                </Link>
               </>
             ) : (
               <>
